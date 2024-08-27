@@ -6,10 +6,10 @@ function App() {
   class Media {
 
     title: string
-    author: string
+    author: string | null
     year: number | null
 
-    constructor(title: string, author: string, year: number | null) {
+    constructor(title: string, author: string | nulls, year: number | null) {
       this.title = title
       this.author = author
       this.year = year
@@ -24,10 +24,11 @@ function App() {
 
   const addItemHandler = (event: any) => {
     event.preventDefault()
-    const entryTitle = event.target[0].value
-    let oldState = [...books]
-    oldState.push(new Media(entryTitle, "Anisha", 1993))
-    setBooks(oldState)
+    const mediaTitle = event.target[0].value
+    const mediaAuthor = event.target[1].value
+    const mediaYear = event.target[2].value
+    let newMedia = new Media(mediaTitle, mediaAuthor, mediaYear)
+    setBooks((oldState: Media[]) => [...oldState, newMedia])
   }
 
   return (
@@ -40,7 +41,9 @@ function App() {
 
         <li>
           <form onSubmit={addItemHandler}>
-            <input name="Title" type="text" />
+            <input name="Title" type="text" placeholder='Title' required/>
+            <input name="Author" type="text" placeholder='Author' />
+            <input name="Year" type="text" placeholder='Year'/>
             <input type="submit" />
           </form>
         </li>
@@ -51,3 +54,8 @@ function App() {
 }
 
 export default App
+
+/* Next Stepssss
+ adding the next fields in the form 
+s editing and deleting!
+*/
